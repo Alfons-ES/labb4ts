@@ -1,0 +1,32 @@
+<div class="container">
+    <h1>Webbutveckling - Ramschema</h1>
+
+    <div class="search-wrapper">
+        <label for="search">Sök:</label>
+        <input id="search" type="search" [(ngModel)]="searchText" (input)="onSearch()"
+            placeholder="Sök efter kurskod eller kursnamn" />
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th (click)="sort('code')">Kurskod {{ getSortIcon('code') }}</th>
+                <th (click)="sort('coursename')">Kursnamn {{ getSortIcon('coursename') }}</th>
+                <th (click)="sort('progression')">Progression {{ getSortIcon('progression') }}</th>
+                <th>Kursplan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let course of filteredCourses">
+                <td>{{ course.code }}</td>
+                <td>{{ course.coursename }}</td>
+                <td class="center">{{ course.progression }}</td>
+                <td class="center">
+                    <a [href]="course.syllabus" target="_blank">Öppna</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p *ngIf="filteredCourses.length === 0">Inga kurser matchade sökningen.</p>
+</div>
