@@ -1,3 +1,6 @@
+https://tslabb4.netlify.app/
+app/components/course-table är huvuddelen, där jag tog js kod från en tidigare labb och skrev om till ts, jag har använt mig av signals för filtrerade kurser.
+
 # Labb4
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
