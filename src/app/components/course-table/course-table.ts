@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 
 @Component({
   selector: 'app-course-table',
@@ -27,7 +27,7 @@ import { Component, OnInit } from '@angular/core';
           </tr>
         </thead>
         <tbody>
-          @for (course of filteredCourses; track course.code) {
+          @for (course of filteredCourses(); track course.code) {
             <tr>
               <td>{{ course.code }}</td>
               <td>{{ course.coursename }}</td>
@@ -42,27 +42,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CourseTable implements OnInit {
   courses: any[] = [];
-  filteredCourses: any[] = [];
+  filteredCourses = signal<any[]>([]);
   sortColumn = '';
   sortDirection: 'asc' | 'desc' = 'asc';
 
   async ngOnInit() {
     const res = await fetch('https://webbutveckling.miun.se/files/ramschema.json');
     const data = await res.json();
-    console.log('data:', data);
     this.courses = data;
-    this.filteredCourses = data;
-    this.sort('code');
+    this.filteredCourses.set([...data]);
   }
 
   onSearch(event: any) {
     const query = event.target.value.toLowerCase().trim();
-    this.filteredCourses = query
+    this.filteredCourses.set(query
       ? this.courses.filter(c =>
         c.coursename.toLowerCase().includes(query) ||
         c.code.toLowerCase().includes(query)
       )
-      : [...this.courses];
+      : [...this.courses]);
   }
 
   sort(column: string) {
@@ -72,11 +70,11 @@ export class CourseTable implements OnInit {
       this.sortColumn = column;
       this.sortDirection = 'asc';
     }
-    this.filteredCourses = [...this.filteredCourses].sort((a, b) => {
+    this.filteredCourses.set([...this.filteredCourses()].sort((a, b) => {
       if (a[column] < b[column]) return this.sortDirection === 'asc' ? -1 : 1;
       if (a[column] > b[column]) return this.sortDirection === 'asc' ? 1 : -1;
       return 0;
-    });
+    }));
   }
 
   getSortIcon(column: string) {
