@@ -49,6 +49,7 @@ export class CourseTable implements OnInit {
   async ngOnInit() {
     const res = await fetch('https://webbutveckling.miun.se/files/ramschema.json');
     const data = await res.json();
+    console.log('data:', data);
     this.courses = data;
     this.filteredCourses = data;
   }
