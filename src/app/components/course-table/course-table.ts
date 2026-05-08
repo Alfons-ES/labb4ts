@@ -3,6 +3,7 @@ import { Component, OnInit, signal } from '@angular/core';
 @Component({
   selector: 'app-course-table',
   standalone: true,
+  styleUrl: './course-table.scss',
   template: `
     <div class="container">
       <h1>Webbutveckling Ramschema</h1>

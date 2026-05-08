@@ -40,9 +40,8 @@ table {
     }
 
     th {
-        cursor: pointer;
-        user-select: none;
         font-weight: 600;
+        font-size: 20px;
 
         &:hover {
             text-decoration: underline;
