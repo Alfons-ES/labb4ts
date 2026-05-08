@@ -1,11 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
+import { CourseTable } from './components/course-table/course-table';
 
 @Component({
   selector: 'app-root',
-  imports: [],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+  standalone: true,
+  imports: [CourseTable],
+  template: `<app-course-table />`
 })
-export class App {
-  protected readonly title = signal('labb4');
-}
+export class App { }
