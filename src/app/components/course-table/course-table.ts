@@ -52,6 +52,7 @@ export class CourseTable implements OnInit {
     console.log('data:', data);
     this.courses = data;
     this.filteredCourses = data;
+    this.sort('code');
   }
 
   onSearch(event: any) {
